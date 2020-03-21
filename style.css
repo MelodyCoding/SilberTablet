@@ -6,4 +6,27 @@ body { padding-top:50px; }
 
 #call{
     height:750px;
+} 
+
+.jumbotron{
+    background-color: #FD863C;
+    border-radius: 20px;
+}
+
+img {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #FD863C;
+}
+img:hover {
+    -ms-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
 }
