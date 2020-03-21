@@ -7,6 +7,10 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+app.get('/pictures', function(req, res) {
+    res.sendFile(path.join(__dirname + '/indexWithPictures.html'));
+});
+
 app.get('/demo', function(req, res) {
     res.sendFile(path.join(__dirname + '/demo.html'));
 });
