@@ -13,7 +13,7 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Testcall</h5>
+                <h5 class="card-title">Testcall - Erstellen URL:<span id="call-url">Bitte warten ...</span></h5>
                 <div id="call">
 
                 </div>
@@ -23,16 +23,33 @@
 
     <script src='https://meet.jit.si/external_api.js'></script>
     <script type="text/javascript">
+        function uuidv4() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        function joinListener(test){
+            //Erst sobald ein Teilnehmer gejoint hat, kann das Kennwort gesetzt werden
+            document.getElementById("call-url").innerHTML = "https://meet.jit.si/" + test.roomName;
+            api.executeCommand('password', 'random_password');
+        }
+
+        const room_name = 'wirvsvirushack_714_demo_'+uuidv4()
         const domain = 'meet.jit.si';
+
         const options = {
-            roomName: 'wirvsvirushack_714_demo2',
+            roomName: room_name,
             interfaceConfigOverwrite: { 
                 filmStripOnly: true
             },
-            password: 'test123',
             parentNode: document.querySelector('#call')
         };
+        
         const api = new JitsiMeetExternalAPI(domain, options);
+        api.addEventListener('videoConferenceJoined', joinListener);
+        
     </script>
 </body>
 </html>
