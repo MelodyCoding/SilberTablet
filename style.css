@@ -1,32 +1,78 @@
-body { padding-top:50px; }
-#call {
-    width:100%;
-    height:100%;
+body { 
+    padding-top:30px; 
+    text-align: center;
 }
 
-#call{
+#call {
+    width:100%;
     height:750px;
 } 
 
-.jumbotron{
-    background-color: #FD863C;
-    border-radius: 20px;
+.navbar-brand {
+    position: relative;
+    margin-bottom: 20px;
+    background-color: #ffffff;
 }
 
-img {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 400px;
-    height: 300px;
-    object-fit: cover;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.brand {
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+}
+
+.jumbotron {
+    background-color: #fd863c;
+    border-radius: 20px;
+    font-size: 12px;
+    text-align: center;
+    align-content: center;
+    color: #ffffff;
+    text-decoration: none;
+    min-height: 300px;
+    -webkit-box-shadow: 7px 7px 24px -1px rgba(0,0,0,0.79); 
+    box-shadow: 7px 7px 24px -1px rgba(0,0,0,0.79);
+}
+
+.jumbotron-fluid{
+    border-radius: 0px;
+}
+
+.highlightBox{
+    background: #FD863C;
+    background: -moz-radial-gradient(center, #FD863C 0%, #B8612C 100%, #AB5A29 100%);
+    background: -webkit-radial-gradient(center, #FD863C 0%, #B8612C 100%, #AB5A29 100%);
+    background: radial-gradient(ellipse at center, #FD863C 0%, #B8612C 100%, #AB5A29 100%);
+    -webkit-box-shadow: none; 
+    box-shadow: none;
+    max-height: 10px;
+}
+
+#callLink {
+    text-decoration: none;
+}
+
+.icon {
+    margin-bottom: 30px;
+}
+
+#dial-in-code {
+    margin-top: 50px;
+    font-weight: bold;
+}
+
+h3 {
+    text-align: center;
+    color: #ffffff;
+}
+
+.btn{
     background-color: #FD863C;
 }
-img:hover {
+
+.test:hover {
     -ms-transform: scale(1.2);
     -moz-transform: scale(1.2);
     -webkit-transform: scale(1.2);
     -o-transform: scale(1.2);
-    transform: scale(1.2);
+    transform: scale(1.1);
 }

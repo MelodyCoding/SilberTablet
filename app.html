@@ -11,20 +11,36 @@
 
 
     <div class="container">
-        <div class="jumbotron">
-                <h5 class="card-title">Willkommen!</h5>
-                <p class="card-body">Deine Silbertablet-Nummer lautet <b id="dial-in-code">...</b></p>
-                <a href="./call">Anruf starten</a>
-        </div>
+        <nav class="navbar-brand">
+            <img src="/resources/silbertablet.png"/>
+        </nav>
+        <a id="callLink" href="./call" target="_blank">
+            <div class="jumbotron">
+                    <img class="icon" src="/resources/ICON_TELEFONBUCH.png"/>
+                    <h3>Gebe folgenden Link der Person, mit der du über Videotelefonie sprechen möchtest:</h3>
+                    <h1 id="dial-in-code"></h1>
+            </div>
+        </a>
         <div class="row">
-            <div class="btn-group">
-              <a class="btn btn-default" href="/demo" role="button">
-                <img id="navbar-icons" src="https://www.iconsdb.com/icons/preview/white/arrow-98-xxl.png"/>
+            <div class="col">
+              <a id="callLink" href="/demo" target="_blank">
+                <div class="jumbotron jumbotron-fluid ">
+                    <img class="icon"  src="/resources/ICON_CALL.png"/>
+                    <h3>Kontakt anrufen</h3>
+                </div> 
               </a>
-              <a class="btn btn-default" href="/demo" role="button">
-                <img id="navbar-icons" src="https://www.iconsdb.com/icons/preview/white/arrow-98-xxl.png"/>
+            </div>
+            <div class="col">
+                <a id="callLink" href="/demo" target="_blank">
+                    <div class="jumbotron jumbotron-fluid ">
+                        <img class="icon" src="resources/ICON_HELP.png"/>
+                        <h3>Ein Problem? Wir helfen!</h3>
+                    </div> 
+                  </a>
               </a>
+            </div>
         </div>
+    </div>
     </div>
 
     <script src='https://meet.jit.si/external_api.js'></script>

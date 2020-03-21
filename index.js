@@ -28,6 +28,8 @@ app.get('/style.css', function(req, res) {
     res.sendFile(path.join(__dirname + '/style.css'));
 });
 
+app.use('/resources', express.static('resources'));
+
 //Die Haupt-Anwendung
 app.get('/app', function(req, res) {
     res.sendFile(path.join(__dirname + '/app.html'));
@@ -42,8 +44,6 @@ app.get('/call', function(req, res) {
 app.get('/join', function(req, res){
     res.sendFile(path.join(__dirname + '/join.html')); 
 });
-
-
 
 app.get('/api/create-dial-in-code', function(req, res) {
     //Einen zufälligen Dial-In-Code erzeugen
