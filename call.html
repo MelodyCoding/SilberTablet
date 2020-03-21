@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Anruf - Erstellen URL:<span id="call-url">Bitte warten ...</span></h5>
+                <div id="call">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src='https://meet.jit.si/external_api.js'></script>
+    <script type="text/javascript">
+        var password = "";
+        var room_name = "";
+        var dial_in_code = "";
+        var api 
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function joinListener(test){
+            //Erst sobald ein Teilnehmer gejoint hat, kann das Kennwort gesetzt werden
+            document.getElementById("call-url").innerHTML = "https://meet.jit.si/" + test.roomName;
+            api.executeCommand('password', password);
+        }
+
+        //Gibt es einen Dial-In-Code als Cookie?
+        if(getCookie('dial_in_code') == ""){
+            //Umleiten auf /app, um einen Dial-In-Code als Cookie zu erhalten
+            window.location.href = "./app";
+        }
+
+        dial_in_code = getCookie('dial_in_code');
+
+        //Den Raumnamen und das Kennwort vom Server laden
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", 'api/dial-in-code/' + dial_in_code, false );
+        xmlHttp.send(null );
+        var response = JSON.parse(xmlHttp.responseText);
+        
+        room_name = response.data.room_name;
+        password = response.data.password;
+        
+        if(response.status == "200"){
+            //Den Call initieren
+            const options = {
+                roomName: room_name,
+                interfaceConfigOverwrite: { 
+                    filmStripOnly: true
+                },
+                parentNode: document.querySelector('#call')
+            };
+
+            api = new JitsiMeetExternalAPI('meet.jit.si', options);
+            api.addEventListener('videoConferenceJoined', joinListener);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Anruf beitreten</h5>
+                <input type="text" class="form-input" id="dial_in_code">
+                <button class="btn btn-primary" onclick="join()">Beitreten</button>
+                <div id="call">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src='https://meet.jit.si/external_api.js'></script>
+    <script type="text/javascript">
+        var password = "";
+        var room_name = "";
+        var dial_in_code = "";
+        var api 
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function passwordRequiredListener(test){
+            //Das Kennwort eingeben
+            api.executeCommand('password', password);
+        }
+
+      function join(){
+            //Den Dial-In-Code aus dem Textfeld auslesen
+            dial_in_code = document.getElementById("dial_in_code").value;
+
+            //Den Raumnamen und das Kennwort vom Server laden
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", 'api/dial-in-code/' + dial_in_code, false );
+            xmlHttp.send(null );
+            var response = JSON.parse(xmlHttp.responseText);
+            
+            room_name = response.data.room_name;
+            password = response.data.password;
+   
+            if(response.status == "200"){
+                //Den Call initieren
+                const options = {
+                    roomName: room_name,
+                    password: password,
+                    interfaceConfigOverwrite: { 
+                        filmStripOnly: true
+                    },
+                    parentNode: document.querySelector('#call')
+                };
+
+                api = new JitsiMeetExternalAPI('meet.jit.si', options);
+                api.addEventListener('passwordRequired', passwordRequiredListener);
+            }
+        }
+    </script>
+</body>
+</html>

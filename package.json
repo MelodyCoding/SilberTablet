@@ -10,6 +10,9 @@
     },
     "dependencies": {
         "bootstrap": "^4.4.1",
-        "express": "^4.17.1"
+        "express": "^4.17.1",
+        "lowdb": "^1.0.0",
+        "sqlite3": "^4.1.1",
+        "uuid": "^7.0.2"
     }
 }
