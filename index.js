@@ -7,6 +7,14 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+app.get('/demo', function(req, res) {
+    res.sendFile(path.join(__dirname + '/demo.html'));
+});
+
+app.get('/style.css', function(req, res) {
+    res.sendFile(path.join(__dirname + '/style.css'));
+});
+
 const port = process.env.PORT || 8080;
 app.listen(port);
 
