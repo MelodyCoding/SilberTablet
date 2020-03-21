@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <script src='https://meet.jit.si/external_api.js'></script>
+    <script src='https://silbertablet.org:8443/external_api.js'></script>
     <script type="text/javascript">
         var password = "";
         var room_name = "";
@@ -46,7 +46,7 @@
 
         function joinListener(test){
             //Erst sobald ein Teilnehmer gejoint hat, kann das Kennwort gesetzt werden
-            document.getElementById("call-url").innerHTML = "https://meet.jit.si/" + test.roomName;
+            document.getElementById("call-url").innerHTML = "https://silbertablet.org/" + test.roomName;
             api.executeCommand('password', password);
         }
 
@@ -77,7 +77,7 @@
                 parentNode: document.querySelector('#call')
             };
 
-            api = new JitsiMeetExternalAPI('meet.jit.si', options);
+            api = new JitsiMeetExternalAPI('silbertablet.org', options);
             api.addEventListener('videoConferenceJoined', joinListener);
         }
     </script>
