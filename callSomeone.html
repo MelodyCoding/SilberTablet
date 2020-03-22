@@ -35,7 +35,7 @@
             <img class="icon"  src="/resources/ICON_CALL.png"/>
             <h3>Bitte gib hier den Code ein, um mit der gewünschten Person zu telefonieren.</h3>
             <form class="form-inline justify-content-center">
-                    <input class="form-control" type="text" placeholder="Code eingeben">
+                    <input id="user-input" class="form-control" type="text" placeholder="Code eingeben">
               </form>
         </div>
         <div class="row">
@@ -59,5 +59,19 @@
         </div>
     </div>
     </div>
+
+    <script src='https://meet.jit.si/external_api.js'></script>
+    <script type="text/javascript">
+    window.addEventListener('load', init);
+    function init(){
+        var input = document.getElementById("user-input");
+        input.addEventListener("change",getDialInCode(input));
+    }
+
+    function getDialInCode(input){
+        var userInputCode = input.value;
+        console.log(userInputCode);
+    }
+    </script>
 </body>
 </html>
