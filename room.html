@@ -14,8 +14,8 @@
         <nav class="navbar-nav status">
             <h3>Du wartest auf deinen Kontakt</h3>
         </nav>
-        <div class="jumbotron call">
-            <h3>jitsi call goes here..</h3>
+        <div class="jumbotron call" id="call">
+            <h3 id="info">Bitte warten ...</h3>
         </div>
         <div class="row">
             <div class="col">
@@ -38,8 +38,46 @@
     </div>
     </div>
 
-    <script src='https://meet.jit.si/external_api.js'></script>
+    <script src='https://silbertablet.org:8443/external_api.js'></script>
     <script type="text/javascript">
+        var room_name = "";
+        var room_password = "";
+        var dial_in_code  = "";
+
+        function passwordRequiredListener(test){
+            //Das Kennwort eingeben
+            api.executeCommand('password', password);
+        }
+
+        //1. Dial-In-Code aus der URL filtern
+        dial_in_code = window.location.search.substr(1);
+
+        //2. API-Abfrage: Gibt es den Dial-In-Code?
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", 'api/dial-in-code/' + dial_in_code, false );
+        xmlHttp.send(null );
+        var response = JSON.parse(xmlHttp.responseText);
+
+        if(response.status == "200"){
+            document.getElementById('info').innerHTML = 'Im Gespräch mit ' + dial_in_code;
+            room_name = response.data.room_name;
+            room_password = response.data.password;
+
+            //Den Call initieren
+            const options = {
+                roomName: room_name,
+                password: room_password,
+                interfaceConfigOverwrite: { 
+                    filmStripOnly: true
+                },
+                parentNode: document.querySelector('#call')
+            };
+
+            api = new JitsiMeetExternalAPI('meet.jit.si', options);
+            api.addEventListener('passwordRequired', passwordRequiredListener);
+        }else if(response.status == "404"){
+            document.getElementById('info').innerHTML = 'Der Code existiert nicht. Hast du dich vertippt?'
+        }
     </script>
 </body>
 </html>
