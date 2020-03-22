@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <script src='https://meet.jit.si/external_api.js'></script>
+    <script src='https://silbertablet.org:8443/external_api.js'></script>
     <script type="text/javascript">
         function uuidv4() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -32,12 +32,12 @@
 
         function joinListener(test){
             //Erst sobald ein Teilnehmer gejoint hat, kann das Kennwort gesetzt werden
-            document.getElementById("call-url").innerHTML = "https://meet.jit.si/" + test.roomName;
+            document.getElementById("call-url").innerHTML = "https://silbertablet.org/" + test.roomName;
             api.executeCommand('password', 'random_password');
         }
 
         const room_name = 'wirvsvirushack_714_demo_'+uuidv4()
-        const domain = 'meet.jit.si';
+        const domain = 'silbertablet.org:8443';
 
         const options = {
             roomName: room_name,

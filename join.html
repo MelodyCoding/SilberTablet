@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <script src='https://meet.jit.si/external_api.js'></script>
+    <script src='https://silbertablet.org:8443/external_api.js'></script>
     <script type="text/javascript">
         var password = "";
         var room_name = "";
@@ -75,7 +75,7 @@
                     parentNode: document.querySelector('#call')
                 };
 
-                api = new JitsiMeetExternalAPI('meet.jit.si', options);
+                api = new JitsiMeetExternalAPI('silbertablet.org:8443', options);
                 api.addEventListener('passwordRequired', passwordRequiredListener);
             }
         }
