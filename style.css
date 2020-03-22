@@ -8,7 +8,18 @@ body {
     height:750px;
 } 
 
+.navbar {
+    background-color: #ffffff; 
+} 
+
+
 .navbar-brand {
+    position: relative;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+}
+
+.navbar-nav {
     position: relative;
     margin-bottom: 20px;
     background-color: #ffffff;
@@ -35,6 +46,17 @@ body {
 
 .jumbotron-fluid{
     border-radius: 0px;
+}
+
+.form-control{
+    height: 44px;
+    margin-top: 50px;
+}
+
+::placeholder {
+    color: #ffffff;
+    font-size: 24px;
+    font-style: italic;
 }
 
 .highlightBox{

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+
+    <div class="container">
+        <nav class="navbar navbar-expand-lg">
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="/app" role="button">
+                            <img src="/resources/ICON-BACK.png"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="/demo" role="button">
+                            <img src="/resources/silbertablet.png"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="jumbotron">
+            <img class="icon"  src="/resources/ICON_CALL.png"/>
+            <h3>Bitte gib hier den Code ein, um mit der gewünschten Person zu telefonieren.</h3>
+            <form class="form-inline justify-content-center">
+                    <input class="form-control" type="text" placeholder="Code eingeben">
+              </form>
+        </div>
+        <div class="row">
+            <div class="col">
+              <a id="callLink" href="/demo" target="_blank">
+                <div class="jumbotron jumbotron-fluid ">
+                    <img class="icon"  src="/resources/ICON_CALL.png"/>
+                    <h3>Anruf starten</h3>
+                </div> 
+              </a>
+            </div>
+            <div class="col">
+                <a id="callLink" href="/app" target="_blank">
+                    <div class="jumbotron jumbotron-fluid ">
+                        <img class="icon" src="resources/ICON_DELETE.png"/>
+                        <h3>Abbrechen</h3>
+                    </div> 
+                  </a>
+              </a>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
