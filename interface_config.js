@@ -11,16 +11,16 @@ var interfaceConfig = {
      */
     DISABLE_VIDEO_BACKGROUND: false,
 
-    INITIAL_TOOLBAR_TIMEOUT: 20000,
-    TOOLBAR_TIMEOUT: 4000,
+    INITIAL_TOOLBAR_TIMEOUT: 0, // 20000,
+    TOOLBAR_TIMEOUT: 0, // 4000,
     TOOLBAR_ALWAYS_VISIBLE: false,
-    DEFAULT_REMOTE_DISPLAY_NAME: 'Fellow Jitster',
-    DEFAULT_LOCAL_DISPLAY_NAME: 'me',
-    SHOW_JITSI_WATERMARK: true,
+    DEFAULT_REMOTE_DISPLAY_NAME: 'Gesprächspartner',
+    DEFAULT_LOCAL_DISPLAY_NAME: 'Ich',
+    SHOW_JITSI_WATERMARK: false,
     JITSI_WATERMARK_LINK: '',
 
     // if watermark is disabled by default, it can be shown only for guests
-    SHOW_WATERMARK_FOR_GUESTS: true,
+    SHOW_WATERMARK_FOR_GUESTS: false,
     SHOW_BRAND_WATERMARK: false,
     BRAND_WATERMARK_LINK: '',
     SHOW_POWERED_BY: false,
@@ -28,11 +28,11 @@ var interfaceConfig = {
     GENERATE_ROOMNAMES_ON_WELCOME_PAGE: true,
     DISPLAY_WELCOME_PAGE_CONTENT: true,
     DISPLAY_WELCOME_PAGE_TOOLBAR_ADDITIONAL_CONTENT: false,
-    APP_NAME: 'Jitsi Meet',
-    NATIVE_APP_NAME: 'Jitsi Meet',
-    PROVIDER_NAME: 'Jitsi',
-    LANG_DETECTION: false, // Allow i18n to detect the system language
-    INVITATION_POWERED_BY: true,
+    APP_NAME: 'SilberTablet',
+    NATIVE_APP_NAME: 'SilberTablet',
+    PROVIDER_NAME: 'SilberTablet',
+    LANG_DETECTION: true, // Allow i18n to detect the system language
+    INVITATION_POWERED_BY: false,
 
     /**
      * If we should show authentication block in profile
@@ -46,10 +46,17 @@ var interfaceConfig = {
      * enabled. Also, the "profile" button will not display for user's with a
      * jwt.
      */
+    //TOOLBAR_BUTTONS: [
+    //    'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
+    //    'fodeviceselection', 'hangup', 'profile', 'info', 'chat', 'recording',
+    //    'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
+    //    'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
+    //    'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone'
+    //],
     TOOLBAR_BUTTONS: [
         'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
-        'fodeviceselection', 'hangup', 'profile', 'info', 'chat', 'recording',
-        'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
+        'fodeviceselection', 'hangup', 'profile', 'recording',
+        'livestreaming', 'etherpad', 'sharedvideo', 'settings', 
         'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
         'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone'
     ],

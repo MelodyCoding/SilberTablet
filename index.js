@@ -1,5 +1,5 @@
 // Development Server?
-const devel = true;
+const devel = false;
 
 var express = require('express');
 var app = express();
@@ -17,15 +17,15 @@ var uuid = require("uuid");
 db.defaults({sessions: []}).write();
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + '/index.html'));
+    res.writeHead(302, {'Location': 'https://silbertablet.yvonnescholz.de'});
+    res.end();
+	//res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.get('/demo', function (req, res) {
     res.sendFile(path.join(__dirname + '/demo.html'));
 });
 
-<<<<<<< Updated upstream
-=======
 //Den Call einer fremden Person suchen
 app.get('/callSomeone', function (req, res) {
     res.sendFile(path.join(__dirname + '/callSomeone.html'));
@@ -36,18 +36,14 @@ app.get('/callSomeone/:code', function(req, res){
     res.send('200');
 });
 
->>>>>>> Stashed changes
 app.get('/style.css', function (req, res) {
     res.sendFile(path.join(__dirname + '/style.css'));
 });
 
-<<<<<<< Updated upstream
 //Die Haupt-Anwendung
-=======
 app.use('/resources', express.static('resources'));
 
 //Die Haupt-Anwendung, welche den eigenen Code anzeigt
->>>>>>> Stashed changes
 app.get('/app', function (req, res) {
     res.sendFile(path.join(__dirname + '/app.html'));
 });
@@ -62,13 +58,8 @@ app.get('/join', function (req, res) {
     res.sendFile(path.join(__dirname + '/join.html'));
 });
 
-<<<<<<< Updated upstream
 
-app.get('/api/create-dial-in-code', function (req, res) {
-=======
-//API: Dial-In-Code erzeugen
 app.get('/api/create-dial-in-code', function(req, res) {
->>>>>>> Stashed changes
     //Einen zufälligen Dial-In-Code erzeugen
     var code = Math.random().toString(36).substring(6);
 
