@@ -59,7 +59,7 @@
             //3. Weiterleitung auf den Call
             if(response.status == "200"){
                 document.getElementById('info').innerHTML = 'Gleich gehts los';
-                window.location.href = "./callSomeone/" + dial_in_code;
+                window.location.href = "./room?" + dial_in_code;
             }else if(response.status == "404"){
                 document.getElementById('info').innerHTML = 'Der Code existiert nicht. Hast du dich vertippt?'
             }

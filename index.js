@@ -48,10 +48,7 @@ app.get('/call', function (req, res) {
     res.sendFile(path.join(__dirname + '/call.html'));
 });
 
-//Anruf beitreten
-app.get('/join', function (req, res) {
-    res.sendFile(path.join(__dirname + '/join.html'));
-});
+
 
 app.get('/api/create-dial-in-code', function(req, res) {
     //Einen zufälligen Dial-In-Code erzeugen
