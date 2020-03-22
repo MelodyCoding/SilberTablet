@@ -10,8 +10,7 @@ body {
 
 .navbar {
     background-color: #ffffff; 
-} 
-
+}
 
 .navbar-brand {
     position: relative;
@@ -44,6 +43,19 @@ body {
     box-shadow: 7px 7px 24px -1px rgba(0,0,0,0.79);
 }
 
+.call {
+    background-color: rgb(99, 96, 96);
+    border-radius: 20px;
+    font-size: 12px;
+    text-align: center;
+    align-content: center;
+    color: #ffffff;
+    text-decoration: none;
+    min-height: 300px;
+    -webkit-box-shadow: 7px 7px 24px -1px rgba(0,0,0,0.79); 
+    box-shadow: 7px 7px 24px -1px rgba(0,0,0,0.79);
+}
+
 .jumbotron-fluid{
     border-radius: 0px;
 }
@@ -54,7 +66,6 @@ body {
 }
 
 ::placeholder {
-    color: #ffffff;
     font-size: 24px;
     font-style: italic;
 }
@@ -75,6 +86,8 @@ body {
 
 .icon {
     margin-bottom: 30px;
+    max-width: 90px;
+    height: auto;
 }
 
 #dial-in-code {
@@ -87,11 +100,7 @@ h3 {
     color: #ffffff;
 }
 
-.btn{
-    background-color: #FD863C;
-}
-
-.test:hover {
+.jumbotron-fluid:hover {
     -ms-transform: scale(1.2);
     -moz-transform: scale(1.2);
     -webkit-transform: scale(1.2);
