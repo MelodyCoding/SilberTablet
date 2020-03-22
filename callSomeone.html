@@ -23,7 +23,7 @@
         </div>
         <div class="row">
             <div class="col">
-              <a id="callLink" href="/demo">
+              <a id="callLink" onclick="startCall()">
                 <div class="jumbotron jumbotron-fluid ">
                     <img class="icon"  src="/resources/ICON_CALL.png"/>
                     <h3>Anruf starten</h3>
@@ -45,16 +45,24 @@
 
     <script src='https://meet.jit.si/external_api.js'></script>
     <script type="text/javascript">
-    window.addEventListener('load', init);
-    function init(){
-        var input = document.getElementById("user-input");
-        input.addEventListener("change",getDialInCode(input));
-    }
+        function startCall(){
+            //1. Eingegebenen Code holen
+            var dial_in_code = document.getElementById('user-input').value;
 
-    function getDialInCode(input){
-        var userInputCode = input.value;
-        console.log(userInputCode);
-    }
+            //2. API-Abfrage: Gibt es den Dial-In-Code?
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", 'api/dial-in-code/' + dial_in_code, false );
+            xmlHttp.send(null );
+            var response = JSON.parse(xmlHttp.responseText);
+
+            //3. Weiterleitung auf den Call
+            if(response.status == "200"){
+                document.getElementById('info').innerHTML = 'Gleich gehts los';
+                window.location.href = "./callSomeone/" + dial_in_code;
+            }else if(response.status == "404"){
+                document.getElementById('info').innerHTML = 'Der Code existiert nicht. Hast du dich vertippt?'
+            }
+        }
     </script>
 </body>
 </html>
