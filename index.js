@@ -17,7 +17,10 @@ var uuid = require("uuid");
 db.defaults({sessions: []}).write();
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + '/index.html'));
+    res.writeHead(302 , {
+           'Location' : 'https://silbertablet.yvonnescholz.de'
+        });
+    res.end();
 });
 
 app.get('/demo', function (req, res) {
