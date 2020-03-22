@@ -36,9 +36,9 @@ body {
     align-content: center;
     color: #ffffff;
     text-decoration: none;
-    min-height: 300px;
     -webkit-box-shadow: 7px 7px 24px -1px rgba(0,0,0,0.79); 
     box-shadow: 7px 7px 24px -1px rgba(0,0,0,0.79);
+    height: 100%
 }
 
 .navbar-text{
@@ -55,23 +55,10 @@ body {
     align-content: center;
     color: #ffffff;
     text-decoration: none;
-    min-height: 300px;
+    height:100%;
+    min-width:100%;
     -webkit-box-shadow: 7px 7px 24px -1px rgba(0,0,0,0.79); 
     box-shadow: 7px 7px 24px -1px rgba(0,0,0,0.79);
-}
-
-.jumbotron-fluid{
-    border-radius: 0px;
-}
-
-.form-control{
-    height: 44px;
-    margin-top: 50px;
-}
-
-::placeholder {
-    font-size: 24px;
-    font-style: italic;
 }
 
 .highlightBox{
@@ -88,9 +75,35 @@ body {
     text-decoration: none;
 }
 
+.btn-primary {
+    border-radius: 0px;
+    border-color: #FD863C;
+    background-color: #FD863C;
+    -webkit-box-shadow: 7px 7px 24px -1px rgba(0,0,0,0.79); 
+    box-shadow: 7px 7px 24px -1px rgba(0,0,0,0.79);
+    position: fixed; bottom: 20px; transform: translateX(-50%);
+    left: 50%;
+    display: block;
+    margin-block-end: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 50%;
+}
+
+.btn-primary:hover {
+    color: #FD863C;
+    border-radius: 0px;
+    border-color: #FD863C;
+    background-color: #FD863C;
+}
+
 .modal-content{
     background-color: #FD863C;
     color: #ffffff;
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.192);
 }
 
 .popup-button {
