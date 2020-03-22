@@ -18,12 +18,6 @@ body {
     background-color: #ffffff;
 }
 
-.navbar-nav {
-    position: relative;
-    margin-bottom: 20px;
-    background-color: #ffffff;
-}
-
 .brand {
     position: absolute;
     transform: translateX(-50%);
@@ -41,6 +35,12 @@ body {
     min-height: 300px;
     -webkit-box-shadow: 7px 7px 24px -1px rgba(0,0,0,0.79); 
     box-shadow: 7px 7px 24px -1px rgba(0,0,0,0.79);
+}
+
+.navbar-text{
+    background-color: #fd863c;
+    position: relative;
+    margin-bottom: 20px;
 }
 
 .call {
