@@ -27,7 +27,7 @@
               </a>
             </div>
             <div class="col">
-                <a id="callLink" href="/app">
+                <a id="callLink" onclick="cancelCall()">
                     <div class="jumbotron jumbotron-fluid ">
                         <img class="icon phone" src="resources/ICON_CALL_END.png"/>
                         <h3>Anruf beenden</h3>
@@ -48,6 +48,12 @@
             //Das Kennwort eingeben
             api.executeCommand('password', room_password);
         }
+
+        function videoConferenceLeftListener(test){
+            //Nach dem Auflegen auf die Haupt-App weiterleiten
+            window.location.href = "./app";
+        }
+
 
         //1. Dial-In-Code aus der URL filtern
         dial_in_code = window.location.search.substr(1);
@@ -73,10 +79,15 @@
                 parentNode: document.querySelector('#call')
             };
 
-            api = new JitsiMeetExternalAPI('meet.jit.si', options);
+            api = new JitsiMeetExternalAPI('silbertablet.org:8443', options);
             api.addEventListener('passwordRequired', passwordRequiredListener);
+            api.addEventListener('videoConferenceLeft', videoConferenceLeftListener);
         }else if(response.status == "404"){
             document.getElementById('info').innerHTML = 'Der Code existiert nicht. Hast du dich vertippt?'
+        }
+
+        function cancelCall(){
+           api.executeCommand('hangup');
         }
     </script>
 </body>

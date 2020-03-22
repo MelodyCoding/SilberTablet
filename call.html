@@ -7,28 +7,44 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/resources/styleCallPage.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
 
     <div class="container">
     <!-- The Modal -->
-    <div class="modal" id="popup">
+    <div class="modal" id="popup_wait">
         <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal body -->
-            <div class="modal-body">
-                <h3>Soblad der eingeladene Kontakt die Einladung angenommen hat, startet der Videoanruf.</h3>
-                <a id="callLink" href="/app">
-                    <div class="jumbotron popup-button">
-                        <img class="icon phone" src="resources/ICON_CALL_END.png"/>
-                        <h3>Anruf beenden</h3>
-                    </div> 
-                </a>
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h3>Soblad dein Kontakt deine Rufnummer eingegegen hat, startet der Videoanruf. Deine Rufnummer lautet: <span id="dial_in_code">...</span></h3>
+                    <a id="callLink" onclick="cancelCall()">
+                        <div class="jumbotron popup-button">
+                            <img class="icon phone" src="resources/ICON_CALL_END.png"/>
+                            <h3>Anruf beenden</h3>
+                        </div> 
+                    </a>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="modal" id="popup_left">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h3>Es ist niemand mehr im Gespräch ... </h3>
+                    <a id="callLink" onclick="cancelCall()">
+                        <div class="jumbotron popup-button">
+                            <img class="icon phone" src="resources/ICON_CALL_END.png"/>
+                            <h3>Anruf beenden</h3>
+                        </div> 
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
         <nav class="navbar-nav status">
@@ -48,7 +64,7 @@
             </div>
             <div class="col">
                 <a id="callLink" href="/app">
-                    <div class="jumbotron jumbotron-fluid ">
+                    <div class="jumbotron jumbotron-fluid" onclick="cancelCall()">
                         <img class="icon phone" src="resources/ICON_CALL_END.png"/>
                         <h3>Anruf beenden</h3>
                     </div> 
@@ -86,15 +102,33 @@
             document.getElementById("info").innerHTML = "Deine Nummer lautet: " + dial_in_code;
             api.executeCommand('password', password);
 
-            //Wenn nur ein Teilnehmer da ist: Modal mit Wartebildschirm anzeigen
             if(api.getNumberOfParticipants() == 1){
-                alert("MODAL SHOW");
+                $('#popup_wait').modal('show');
             }
         }
 
         function participantJoinedListener(test){
             //Den Modal schließen ...
-            alert("MODAL CLOSE");
+            console.log("=========JOINED=========");
+            $('#popup_left').modal('hide');
+            $('#popup_wait').modal('hide');
+        }
+
+        function passwordRequiredListener(test){
+            //Das Kennwort eingeben
+            api.executeCommand('password', room_password);
+        }
+
+        function videoConferenceLeftListener(test){
+            //Nach dem Auflegen auf die Haupt-App weiterleiten
+            window.location.href = "./app";
+        }
+
+        function participantLeftListener(test){
+            //Wenn nur ein Teilnehmer da ist: Modal mit Wartebildschirm anzeigen
+            if(api.getNumberOfParticipants() == 1){
+                $('#popup_left').modal('show');
+            }
         }
     
         //Gibt es einen Dial-In-Code als Cookie?
@@ -104,7 +138,7 @@
         }
     
         dial_in_code = getCookie('dial_in_code');
-    
+        document.getElementById("dial_in_code").innerHTML = dial_in_code;
         //Den Raumnamen und das Kennwort vom Server laden
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open( "GET", 'api/dial-in-code/' + dial_in_code, false );
@@ -127,7 +161,14 @@
             api = new JitsiMeetExternalAPI('silbertablet.org:8443', options);
             api.addEventListener('videoConferenceJoined', selfJoinedListener);
             api.addEventListener('participantJoined', participantJoinedListener);
+            api.addEventListener('passwordRequired', passwordRequiredListener);
+            api.addEventListener('videoConferenceLeft', videoConferenceLeftListener);
+            api.addEventListener('participantLeft',participantLeftListener);
         }
+
+       function cancelCall(){
+           api.executeCommand('hangup');
+       }
     </script>
 </body>
 </html>
