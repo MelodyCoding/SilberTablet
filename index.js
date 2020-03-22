@@ -28,10 +28,6 @@ app.get('/callSomeone', function (req, res) {
     res.sendFile(path.join(__dirname + '/callSomeone.html'));
 });
 
-app.get('/style.css', function (req, res) {
-    res.sendFile(path.join(__dirname + '/style.css'));
-});
-
 app.get('/room', function (req, res) {
     res.sendFile(path.join(__dirname + '/room.html'));
 });
