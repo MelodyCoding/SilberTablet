@@ -102,8 +102,13 @@ body {
     color: #ffffff;
 }
 
-.modal {
-    background-color: rgba(0, 0, 0, 0.192);
+.modal-dialog {
+    margin-top: 10%;
+    position: center;
+}
+
+.modal-backdrop {
+    opacity:0.5 !important;
 }
 
 .popup-button {
