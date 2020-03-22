@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+
+    <div class="container">
+        <nav class="navbar navbar-expand-lg">
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="/app" role="button">
+                            <img src="/resources/ICON-BACK.png"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="/demo" role="button">
+                            <img src="/resources/silbertablet.png"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="jumbotron">
+            <img class="icon"  src="/resources/ICON_CALL.png"/>
+            <h3>Bitte gib hier den Code ein, um mit der Person zu telefonieren.</h3>
+            <h3 id="info"></h3>
+            <form class="form-inline justify-content-center">
+                    <input id="user-input" class="form-control" type="text" placeholder="Code eingeben">
+              </form>
+        </div>
+        <div class="row">
+            <div class="col">
+              <a id="callLink" onclick="startCall()">
+                <div class="jumbotron jumbotron-fluid ">
+                    <img class="icon"  src="/resources/ICON_CALL.png"/>
+                    <h3>Anruf starten</h3>
+                </div> 
+              </a>
+            </div>
+            <div class="col">
+                <a id="callLink" href="/app" target="_blank">
+                    <div class="jumbotron jumbotron-fluid ">
+                        <img class="icon" src="resources/ICON_DELETE.png"/>
+                        <h3>Abbrechen</h3>
+                    </div> 
+                  </a>
+              </a>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src='https://meet.jit.si/external_api.js'></script>
+    <script type="text/javascript">
+        function startCall(){
+            //1. Eingegebenen Code holen
+            var dial_in_code = document.getElementById('user-input').value;
+
+            //2. API-Abfrage: Gibt es den Dial-In-Code?
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", 'api/dial-in-code/' + dial_in_code, false );
+            xmlHttp.send(null );
+            var response = JSON.parse(xmlHttp.responseText);
+
+            //3. Weiterleitung auf den Call
+            if(response.status == "200"){
+                document.getElementById('info').innerHTML = 'Gleich gehts los';
+                window.location.href = "./callSomeone/" + dial_in_code;
+            }else if(response.status == "404"){
+                document.getElementById('info').innerHTML = 'Der Code existiert nicht. Hast du dich vertippt?'
+            }
+        }
+    </script>
+</body>
+</html>

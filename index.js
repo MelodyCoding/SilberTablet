@@ -24,27 +24,51 @@ app.get('/demo', function (req, res) {
     res.sendFile(path.join(__dirname + '/demo.html'));
 });
 
+<<<<<<< Updated upstream
+=======
+//Den Call einer fremden Person suchen
+app.get('/callSomeone', function (req, res) {
+    res.sendFile(path.join(__dirname + '/callSomeone.html'));
+});
+
+//Den Call einer fremden Person beitreten
+app.get('/callSomeone/:code', function(req, res){
+    res.send('200');
+});
+
+>>>>>>> Stashed changes
 app.get('/style.css', function (req, res) {
     res.sendFile(path.join(__dirname + '/style.css'));
 });
 
+<<<<<<< Updated upstream
 //Die Haupt-Anwendung
+=======
+app.use('/resources', express.static('resources'));
+
+//Die Haupt-Anwendung, welche den eigenen Code anzeigt
+>>>>>>> Stashed changes
 app.get('/app', function (req, res) {
     res.sendFile(path.join(__dirname + '/app.html'));
 });
 
-//Anruf starten
+//In den eigenen Call gehen
 app.get('/call', function (req, res) {
     res.sendFile(path.join(__dirname + '/call.html'));
 });
 
-//Anruf beitreten
+//Anruf beitreten (Alt - wird derzeit durch /callSomeone und /callSomeone/:code ersetzt)
 app.get('/join', function (req, res) {
     res.sendFile(path.join(__dirname + '/join.html'));
 });
 
+<<<<<<< Updated upstream
 
 app.get('/api/create-dial-in-code', function (req, res) {
+=======
+//API: Dial-In-Code erzeugen
+app.get('/api/create-dial-in-code', function(req, res) {
+>>>>>>> Stashed changes
     //Einen zufälligen Dial-In-Code erzeugen
     var code = Math.random().toString(36).substring(6);
 
@@ -54,7 +78,7 @@ app.get('/api/create-dial-in-code', function (req, res) {
     }
 
     //Raumnamen und Raumkennwort erzeugen
-    var _room_name = 'silbertablet_' + Date.now() + "_" + uuid.v4();
+    var _room_name = 'silbertablet' + Date.now() + uuid.v4().replace(/[-]/gm,'');
     var _password = Math.random().toString(36).substring(6);
 
     //Daten in der LowDB Speichern
@@ -71,6 +95,7 @@ app.get('/api/create-dial-in-code', function (req, res) {
     res.send(response);
 });
 
+//API: Dial-In-Code verifizieren und Raumdetails rausgeben
 app.get('/api/dial-in-code/:code', function (req, res) {
     //Den Raumnamen und das Raumkennwort für einen Dial-In-Code zurückgeben
 
