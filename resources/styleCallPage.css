@@ -88,6 +88,23 @@ body {
     text-decoration: none;
 }
 
+.modal-content{
+    background-color: #FD863C;
+    color: #ffffff;
+}
+
+.popup-button {
+    background-color: #da7333;
+    border-radius: 20px;
+    font-size: 12px;
+    text-align: center;
+    align-content: center;
+    color: #ffffff;
+    text-decoration: none;
+    -webkit-box-shadow: 7px 7px 24px -1px rgba(0,0,0,0.79); 
+    box-shadow: 7px 7px 24px -1px rgba(0,0,0,0.79);
+}
+
 .icon {
     margin-bottom: 30px;
     max-width: 90px;
