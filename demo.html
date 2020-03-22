@@ -32,21 +32,12 @@
 
         function joinListener(test){
             //Erst sobald ein Teilnehmer gejoint hat, kann das Kennwort gesetzt werden
-<<<<<<< Updated upstream
-            document.getElementById("call-url").innerHTML = "https://silbertablet.org/" + test.roomName;
-            api.executeCommand('password', 'random_password');
-        }
-
-        const room_name = 'wirvsvirushack_714_demo_'+uuidv4()
-        const domain = 'silbertablet.org';
-=======
             document.getElementById("call-url").innerHTML = "https://silbertablet.org:8443/" + test.roomName;
             api.executeCommand('password', 'random_password');
         }
 
         const room_name = 'demo'+uuidv4().replace(/[-]/gm,'')
         const domain = 'silbertablet.org:8443';
->>>>>>> Stashed changes
 
         const options = {
             roomName: room_name,
