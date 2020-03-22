@@ -12,10 +12,10 @@
 
     <div class="container">
         <nav class="navbar-nav status">
-            <h3>Du wartest auf deinen Kontakt</h3>
+            <h3 id="info">Du wartest auf deinen Kontakt</h3>
         </nav>
         <div class="jumbotron call" id="call">
-            <h3 id="info">Bitte warten ...</h3>
+
         </div>
         <div class="row">
             <div class="col">
@@ -46,7 +46,7 @@
 
         function passwordRequiredListener(test){
             //Das Kennwort eingeben
-            api.executeCommand('password', password);
+            api.executeCommand('password', room_password);
         }
 
         //1. Dial-In-Code aus der URL filtern

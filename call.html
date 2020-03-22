@@ -12,10 +12,10 @@
 
     <div class="container">
         <nav class="navbar-nav status">
-            <h3>Du wartest auf deinen Kontakt</h3>
+            <h3 id="info">...</h3>
         </nav>
         <div class="jumbotron call" id="call">
-            <h3 id="info">Bitte warten ...</h3>
+            
         </div>
         <div class="row">
             <div class="col">
@@ -61,11 +61,20 @@
             return "";
         }
     
-        function joinListener(test){
+        function selfJoinedListener(test){
             //Erst sobald ein Teilnehmer gejoint hat, kann das Kennwort gesetzt werden
             document.getElementById("info").innerHTML = "Deine Nummer lautet: " + dial_in_code;
-            document.getElementById("call-url").innerHTML = "https://meet.jit.si/" + test.roomName;
             api.executeCommand('password', password);
+
+            //Wenn nur ein Teilnehmer da ist: Modal mit Wartebildschirm anzeigen
+            if(api.getNumberOfParticipants() == 1){
+                alert("MODAL SHOW");
+            }
+        }
+
+        function participantJoinedListener(test){
+            //Den Modal schließen ...
+            alert("MODAL CLOSE");
         }
     
         //Gibt es einen Dial-In-Code als Cookie?
@@ -95,8 +104,9 @@
                 parentNode: document.querySelector('#call')
             };
     
-            api = new JitsiMeetExternalAPI('meet.jit.si', options);
-            api.addEventListener('videoConferenceJoined', joinListener);
+            api = new JitsiMeetExternalAPI('silbertablet.org:8443', options);
+            api.addEventListener('videoConferenceJoined', selfJoinedListener);
+            api.addEventListener('participantJoined', participantJoinedListener);
         }
     </script>
 </body>
