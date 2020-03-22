@@ -59,7 +59,7 @@ app.get('/api/create-dial-in-code', function(req, res) {
     }
 
     //Raumnamen und Raumkennwort erzeugen
-    var _room_name = 'silbertablet_' + Date.now() + "_" + uuid.v4();
+    var _room_name = 'silbertablet' + Date.now() + uuid.v4().replace(/[-]/gm,'');
     var _password = Math.random().toString(36).substring(6);
 
     //Daten in der LowDB Speichern
