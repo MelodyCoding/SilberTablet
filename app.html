@@ -67,9 +67,8 @@
             document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
         }
 
-        //Gibt es schon einen Cookie mit Dial-In-Code:
-       if(getCookie('dial_in_code') == ''){
-            //Neuen Dial-In-Code anfordern
+        function generate_dial_in_code(){
+            //Neuen Dial-In-Code anfordern und als Cookie speichern und anzeigen
             document.getElementById("dial-in-code").innerHTML = "Bitte warten";
 
             var xmlHttp = new XMLHttpRequest();
@@ -81,15 +80,36 @@
             if(response.status == 200){
                 var dial_in_code = response.data.dial_in_code;
                 setCookie('dial_in_code',dial_in_code,365);
+                document.getElementById("dial-in-code").innerHTML = dial_in_code;
             }else{
                 document.getElementById("dial-in-code").innerHTML = "Fehler!";
-            }           
+            }   
+        }
+
+        //Gibt es schon einen Cookie mit Dial-In-Code:
+       if(getCookie('dial_in_code') == ''){
+            generate_dial_in_code();
        }else{
-           var dial_in_code = getCookie('dial_in_code');
+            var dial_in_code = getCookie('dial_in_code');
+            
+            //Gibt es den Dial-In-Code aus dem Cookie?
+        
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", 'api/dial-in-code/' + dial_in_code, false );
+            xmlHttp.send(null );
+            var response = JSON.parse(xmlHttp.responseText);
+
+            
+            if(response.status == "404"){
+                //Existiert noch nicht - dann erzeugen
+                generate_dial_in_code();
+            }else{
+                //Dial-In-Code anzeigen
+                document.getElementById("dial-in-code").innerHTML = dial_in_code;
+            }
        }
 
-       //Dial-In-Code anzeigen
-       document.getElementById("dial-in-code").innerHTML = dial_in_code;
+
     </script>
 </body>
 </html>
