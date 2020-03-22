@@ -6,11 +6,31 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/resources/styleCallPage.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 </head>
 <body>
 
 
     <div class="container">
+    <!-- The Modal -->
+    <div class="modal" id="popup">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal body -->
+            <div class="modal-body">
+                <h3>Soblad der eingeladene Kontakt die Einladung angenommen hat, startet der Videoanruf.</h3>
+                <a id="callLink" href="/app">
+                    <div class="jumbotron popup-button">
+                        <img class="icon phone" src="resources/ICON_CALL_END.png"/>
+                        <h3>Anruf beenden</h3>
+                    </div> 
+                </a>
+            </div>
+        </div>
+        </div>
+    </div>
         <nav class="navbar-nav status">
             <h3 id="info">...</h3>
         </nav>
