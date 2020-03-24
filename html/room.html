@@ -4,81 +4,82 @@
     <meta charset="UTF-8">
     <title>Demo</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/resources/styleCallPage.css">
 </head>
 <body>
 
-        <nav class="navbar-nav status">
-            <h3 id="info">Du wartest auf deinen Kontakt</h3>
-        </nav>
+<nav class="navbar-nav status">
+    <h3 id="info">Du wartest auf deinen Kontakt</h3>
+</nav>
 
 
-        <div class="container">
-        <div class="jumbotron call" id="call">
+<div class="container">
+    <div class="jumbotron call" id="call">
 
-        </div>
-        <div class="row">
-                <a class="btn btn-primary" href="/app" role="button">
-                        <img class="icon phone" src="../resources/ICON_CALL_END.png"/>
-                        <h3>Anruf beenden</h3>
-                </a>
-        
-        </div>
     </div>
+    <div class="row">
+        <a class="btn btn-primary" href="/app" role="button">
+            <img class="icon phone" src="../resources/ICON_CALL_END.png"/>
+            <h3>Anruf beenden</h3>
+        </a>
+
     </div>
+</div>
+</div>
 
-    <script src='https://silbertablet.org:8443/external_api.js'></script>
-    <script type="text/javascript">
-        var room_name = "";
-        var room_password = "";
-        var dial_in_code  = "";
+<script src='https://silbertablet.org:8443/external_api.js'></script>
+<script type="text/javascript">
+    var room_name = "";
+    var room_password = "";
+    var dial_in_code = "";
 
-        function passwordRequiredListener(test){
-            //Das Kennwort eingeben
-            api.executeCommand('password', room_password);
-        }
+    function passwordRequiredListener(test) {
+        //Das Kennwort eingeben
+        api.executeCommand('password', room_password);
+    }
 
-        function videoConferenceLeftListener(test){
-            //Nach dem Auflegen auf die Haupt-App weiterleiten
-            window.location.href = "./app";
-        }
+    function videoConferenceLeftListener(test) {
+        //Nach dem Auflegen auf die Haupt-App weiterleiten
+        window.location.href = "./app";
+    }
 
 
-        //1. Dial-In-Code aus der URL filtern
-        dial_in_code = window.location.search.substr(1);
+    //1. Dial-In-Code aus der URL filtern
+    dial_in_code = window.location.search.substr(1);
 
-        //2. API-Abfrage: Gibt es den Dial-In-Code?
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", 'api/dial-in-code/' + dial_in_code, false );
-        xmlHttp.send(null );
-        var response = JSON.parse(xmlHttp.responseText);
+    //2. API-Abfrage: Gibt es den Dial-In-Code?
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", 'api/dial-in-code/' + dial_in_code, false);
+    xmlHttp.send(null);
+    var response = JSON.parse(xmlHttp.responseText);
 
-        if(response.status == "200"){
-            document.getElementById('info').innerHTML = 'Im Gespräch mit ' + dial_in_code;
-            room_name = response.data.room_name;
-            room_password = response.data.password;
+    if (response.status == "200") {
+        document.getElementById('info').innerHTML = 'Im Gespräch mit ' + dial_in_code;
+        room_name = response.data.room_name;
+        room_password = response.data.password;
 
-            //Den Call initieren
-            const options = {
-                roomName: room_name,
-                password: room_password,
-                interfaceConfigOverwrite: { 
-                    filmStripOnly: true
-                },
-                parentNode: document.querySelector('#call')
-            };
+        //Den Call initieren
+        const options = {
+            roomName: room_name,
+            password: room_password,
+            interfaceConfigOverwrite: {
+                filmStripOnly: true
+            },
+            parentNode: document.querySelector('#call')
+        };
 
-            api = new JitsiMeetExternalAPI('silbertablet.org:8443', options);
-            api.addEventListener('passwordRequired', passwordRequiredListener);
-            api.addEventListener('videoConferenceLeft', videoConferenceLeftListener);
-        }else if(response.status == "404"){
-            document.getElementById('info').innerHTML = 'Der Code existiert nicht. Hast du dich vertippt?'
-        }
+        api = new JitsiMeetExternalAPI('silbertablet.org:8443', options);
+        api.addEventListener('passwordRequired', passwordRequiredListener);
+        api.addEventListener('videoConferenceLeft', videoConferenceLeftListener);
+    } else if (response.status == "404") {
+        document.getElementById('info').innerHTML = 'Der Code existiert nicht. Hast du dich vertippt?'
+    }
 
-        function cancelCall(){
-           api.executeCommand('hangup');
-        }
-    </script>
+    function cancelCall() {
+        api.executeCommand('hangup');
+    }
+</script>
 </body>
 </html>

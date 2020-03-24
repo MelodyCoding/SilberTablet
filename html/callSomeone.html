@@ -4,66 +4,67 @@
     <meta charset="UTF-8">
     <title>Demo</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/resources/style.css">
 </head>
 <body>
 
 
-    <div class="container">
-        <nav class="navbar-brand">
-            <img src="/resources/silbertablet.png"/>
-        </nav>
-        <div class="jumbotron call">
-            <img class="icon"  src="/resources/telephone.png"/>
-            <h3>Bitte gib hier die erhaltene Rufnummer ein, um mit der gewünschten Person zu telefonieren.</h3>
-            <h3 id="info"></h3>
-            <form class="form-inline justify-content-center">
-                    <input id="user-input" class="form-control" type="text" placeholder="Rufnummer">
-              </form>
-        </div>
-        <div class="row">
-            <div class="col">
-              <a id="callLink" onclick="startCall()">
+<div class="container">
+    <nav class="navbar-brand">
+        <img src="/resources/silbertablet.png"/>
+    </nav>
+    <div class="jumbotron call">
+        <img class="icon" src="/resources/telephone.png"/>
+        <h3>Bitte gib hier die erhaltene Rufnummer ein, um mit der gewünschten Person zu telefonieren.</h3>
+        <h3 id="info"></h3>
+        <form class="form-inline justify-content-center">
+            <input id="user-input" class="form-control" type="text" placeholder="Rufnummer">
+        </form>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a id="callLink" onclick="startCall()">
                 <div class="jumbotron jumbotron-fluid ">
-                    <img class="icon"  src="/resources/ICON_CALL.png"/>
+                    <img class="icon" src="/resources/ICON_CALL.png"/>
                     <h3>Anruf tätigen</h3>
-                </div> 
-              </a>
-            </div>
-            <div class="col">
-                <a id="callLink" href="/app">
-                    <div class="jumbotron jumbotron-fluid ">
-                        <img class="icon" src="../resources/ICON_DELETE.png"/>
-                        <h3>Abbrechen</h3>
-                    </div> 
-                  </a>
-              </a>
-            </div>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a id="callLink" href="/app">
+                <div class="jumbotron jumbotron-fluid ">
+                    <img class="icon" src="../resources/ICON_DELETE.png"/>
+                    <h3>Abbrechen</h3>
+                </div>
+            </a>
+            </a>
         </div>
     </div>
-    </div>
+</div>
+</div>
 
-    <script src='https://meet.jit.si/external_api.js'></script>
-    <script type="text/javascript">
-        function startCall(){
-            //1. Eingegebenen Code holen
-            var dial_in_code = document.getElementById('user-input').value;
+<script src='https://silbertablet.org:8443/external_api.js'></script>
+<script type="text/javascript">
+    function startCall() {
+        //1. Eingegebenen Code holen
+        var dial_in_code = document.getElementById('user-input').value;
 
-            //2. API-Abfrage: Gibt es den Dial-In-Code?
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open( "GET", 'api/dial-in-code/' + dial_in_code, false );
-            xmlHttp.send(null );
-            var response = JSON.parse(xmlHttp.responseText);
+        //2. API-Abfrage: Gibt es den Dial-In-Code?
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", 'api/dial-in-code/' + dial_in_code, false);
+        xmlHttp.send(null);
+        var response = JSON.parse(xmlHttp.responseText);
 
-            //3. Weiterleitung auf den Call
-            if(response.status == "200"){
-                document.getElementById('info').innerHTML = 'Gleich gehts los';
-                window.location.href = "./room?" + dial_in_code;
-            }else if(response.status == "404"){
-                document.getElementById('info').innerHTML = 'Der Code existiert nicht. Hast du dich vertippt?'
-            }
+        //3. Weiterleitung auf den Call
+        if (response.status == "200") {
+            document.getElementById('info').innerHTML = 'Gleich gehts los';
+            window.location.href = "./room?" + dial_in_code;
+        } else if (response.status == "404") {
+            document.getElementById('info').innerHTML = 'Der Code existiert nicht. Hast du dich vertippt?'
         }
-    </script>
+    }
+</script>
 </body>
 </html>

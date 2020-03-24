@@ -4,170 +4,172 @@
     <meta charset="UTF-8">
     <title>Demo</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/resources/styleCallPage.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-    <nav class="navbar-nav status">
-        <h3 id="info">Du wartest auf deinen Kontakt</h3>
-    </nav>
+<nav class="navbar-nav status">
+    <h3 id="info">Du wartest auf deinen Kontakt</h3>
+</nav>
 
-    
-    <!-- Modal: Warte auf Teilnehmer -->
-    <div class="modal" id="popup_wait">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <h3>Soblad der eingeladene Kontakt die Einladung angenommen hat, startet der Videoanruf.</h3>
-                    <h3>Deine Nummer lautet: <span id="dial_in_code"></span></span></h3>
-                        <div class="row">
-                            <div class="col">
-                                <a class="btn btn-primary" href="/app" role="button">
-                                    <img class="icon phone" src="../resources/ICON_CALL_END.png"/>
-                                    <h3>Anruf abbrechen</h3>
-                                </a>
-                            </div>
-                        </div>
-                    </a>
+
+<!-- Modal: Warte auf Teilnehmer -->
+<div class="modal" id="popup_wait">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3>Soblad der eingeladene Kontakt die Einladung angenommen hat, startet der Videoanruf.</h3>
+                <h3>Deine Nummer lautet: <span id="dial_in_code"></span></span></h3>
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-primary" href="/app" role="button">
+                            <img class="icon phone" src="../resources/ICON_CALL_END.png"/>
+                            <h3>Anruf abbrechen</h3>
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal: Alle Teilnehmer haben den Anruf verlassen-->
-    <div class="modal" id="popup_left">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <h3>Alle Teilnehmer*innen haben den Anruf verlassen. Du kannst jetzt auflegen.</h3>
-                        <div class="row">
-                            <div class="col">
-                                <a class="btn btn-primary" href="/app" role="button">
-                                        <img class="icon phone" src="../resources/ICON_CALL_END.png"/>
-                                        <h3>Anruf beenden</h3>
-                                </a>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    
-    <div class="container">
-        <div class="jumbotron call" id="call">
-
-        </div>
-        <div class="row">
-                <a class="btn btn-primary" onclick="cancelCall()" role="button">
-                        <img class="icon phone" src="../resources/ICON_CALL_END.png"/>
-                        <h3>Anruf beenden</h3>
                 </a>
-        
+            </div>
         </div>
     </div>
+</div>
+
+<!-- Modal: Alle Teilnehmer haben den Anruf verlassen-->
+<div class="modal" id="popup_left">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3>Alle Teilnehmer*innen haben den Anruf verlassen. Du kannst jetzt auflegen.</h3>
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-primary" href="/app" role="button">
+                            <img class="icon phone" src="../resources/ICON_CALL_END.png"/>
+                            <h3>Anruf beenden</h3>
+                        </a>
+                    </div>
+                </div>
+                </a>
+            </div>
+        </div>
     </div>
+</div>
 
-    <script src='https://silbertablet.org:8443/external_api.js'></script>
-    <script type="text/javascript">
-        var password = "";
-        var room_name = "";
-        var dial_in_code = "";
-        var api 
-    
-        function getCookie(cname) {
-            var name = cname + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var ca = decodedCookie.split(';');
-            for(var i = 0; i <ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') {
+
+<div class="container">
+    <div class="jumbotron call" id="call">
+
+    </div>
+    <div class="row">
+        <a class="btn btn-primary" onclick="cancelCall()" role="button">
+            <img class="icon phone" src="../resources/ICON_CALL_END.png"/>
+            <h3>Anruf beenden</h3>
+        </a>
+
+    </div>
+</div>
+</div>
+
+<script src='https://silbertablet.org:8443/external_api.js'></script>
+<script type="text/javascript">
+    var password = "";
+    var room_name = "";
+    var dial_in_code = "";
+    var api
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
                 c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
+            }
+            if (c.indexOf(name) == 0) {
                 return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        }
-    
-        function selfJoinedListener(test){
-            //Erst sobald ein Teilnehmer gejoint hat, kann das Kennwort gesetzt werden
-            document.getElementById("info").innerHTML = "Deine Nummer lautet: " + dial_in_code;
-            api.executeCommand('password', password);
-
-            if(api.getNumberOfParticipants() == 1){
-                $('#popup_wait').modal('show');
             }
         }
+        return "";
+    }
 
-        function participantJoinedListener(test){
-            //Den Modal schließen ...
-            $('#popup_left').modal('hide');
-            $('#popup_wait').modal('hide');
-        }
+    function selfJoinedListener(test) {
+        //Erst sobald ein Teilnehmer gejoint hat, kann das Kennwort gesetzt werden
+        document.getElementById("info").innerHTML = "Deine Nummer lautet: " + dial_in_code;
+        api.executeCommand('password', password);
 
-        function passwordRequiredListener(test){
-            //Das Kennwort eingeben
-            api.executeCommand('password', room_password);
+        if (api.getNumberOfParticipants() == 1) {
+            $('#popup_wait').modal('show');
         }
+    }
 
-        function videoConferenceLeftListener(test){
-            //Nach dem Auflegen auf die Haupt-App weiterleiten
-            window.location.href = "./app";
-        }
+    function participantJoinedListener(test) {
+        //Den Modal schließen ...
+        $('#popup_left').modal('hide');
+        $('#popup_wait').modal('hide');
+    }
 
-        function participantLeftListener(test){
-            //Wenn nur ein Teilnehmer da ist: Modal mit Wartebildschirm anzeigen
-            if(api.getNumberOfParticipants() == 1){
-                $('#popup_left').modal('show');
-            }
-        }
-    
-        //Gibt es einen Dial-In-Code als Cookie?
-        if(getCookie('dial_in_code') == ""){
-            //Umleiten auf /app, um einen Dial-In-Code als Cookie zu erhalten
-            window.location.href = "./app";
-        }
-    
-        dial_in_code = getCookie('dial_in_code');
-        document.getElementById("dial_in_code").innerHTML = dial_in_code;
+    function passwordRequiredListener(test) {
+        //Das Kennwort eingeben
+        api.executeCommand('password', room_password);
+    }
 
-        //Den Raumnamen und das Kennwort vom Server laden
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", 'api/dial-in-code/' + dial_in_code, false );
-        xmlHttp.send(null );
-        var response = JSON.parse(xmlHttp.responseText);
-        
-        room_name = response.data.room_name;
-        password = response.data.password;
-        
-        if(response.status == "200"){
-            //Den Call initieren
-            const options = {
-                roomName: room_name,
-                interfaceConfigOverwrite: { 
-                    filmStripOnly: true
-                },
-                parentNode: document.querySelector('#call')
-            };
-    
-            api = new JitsiMeetExternalAPI('silbertablet.org:8443', options);
-            api.addEventListener('videoConferenceJoined', selfJoinedListener);
-            api.addEventListener('participantJoined', participantJoinedListener);
-            api.addEventListener('passwordRequired', passwordRequiredListener);
-            api.addEventListener('videoConferenceLeft', videoConferenceLeftListener);
-            api.addEventListener('participantLeft',participantLeftListener);
-        }
+    function videoConferenceLeftListener(test) {
+        //Nach dem Auflegen auf die Haupt-App weiterleiten
+        window.location.href = "./app";
+    }
 
-       function cancelCall(){
-           api.executeCommand('hangup');
-       }
-    </script>
+    function participantLeftListener(test) {
+        //Wenn nur ein Teilnehmer da ist: Modal mit Wartebildschirm anzeigen
+        if (api.getNumberOfParticipants() == 1) {
+            $('#popup_left').modal('show');
+        }
+    }
+
+    //Gibt es einen Dial-In-Code als Cookie?
+    if (getCookie('dial_in_code') == "") {
+        //Umleiten auf /app, um einen Dial-In-Code als Cookie zu erhalten
+        window.location.href = "./app";
+    }
+
+    dial_in_code = getCookie('dial_in_code');
+    document.getElementById("dial_in_code").innerHTML = dial_in_code;
+
+    //Den Raumnamen und das Kennwort vom Server laden
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", 'api/dial-in-code/' + dial_in_code, false);
+    xmlHttp.send(null);
+    var response = JSON.parse(xmlHttp.responseText);
+
+    room_name = response.data.room_name;
+    password = response.data.password;
+
+    if (response.status == "200") {
+        //Den Call initieren
+        const options = {
+            roomName: room_name,
+            interfaceConfigOverwrite: {
+                filmStripOnly: true
+            },
+            parentNode: document.querySelector('#call')
+        };
+
+        api = new JitsiMeetExternalAPI('silbertablet.org:8443', options);
+        api.addEventListener('videoConferenceJoined', selfJoinedListener);
+        api.addEventListener('participantJoined', participantJoinedListener);
+        api.addEventListener('passwordRequired', passwordRequiredListener);
+        api.addEventListener('videoConferenceLeft', videoConferenceLeftListener);
+        api.addEventListener('participantLeft', participantLeftListener);
+    }
+
+    function cancelCall() {
+        api.executeCommand('hangup');
+    }
+</script>
 </body>
 </html>

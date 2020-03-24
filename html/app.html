@@ -4,112 +4,113 @@
     <meta charset="UTF-8">
     <title>Demo</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/resources/style.css">
 </head>
 <body>
 
 
-    <div class="container">
-        <nav class="navbar-brand">
-            <img src="/resources/silbertablet.png"/>
-        </nav>
-        <div class="jumbotron call">
-            <img class="icon" src="../resources/info.png"/>
-            <h3>Bitte teile die folgende Video-Rufnummer deinem gewünschten Gesprächspartner mit:</h3>
-            <h1 id="dial-in-code"></h1>
-        </div>
-        <div class="row">
-            <div class="col">
-              <a id="callLink" href="./call">
+<div class="container">
+    <nav class="navbar-brand">
+        <img src="/resources/silbertablet.png"/>
+    </nav>
+    <div class="jumbotron call">
+        <img class="icon" src="../resources/info.png"/>
+        <h3>Bitte teile die folgende Video-Rufnummer deinem gewünschten Gesprächspartner mit:</h3>
+        <h1 id="dial-in-code"></h1>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a id="callLink" href="./call">
                 <div class="jumbotron jumbotron-fluid ">
-                    <img class="icon"  src="/resources/ICON_CALL.png"/>
+                    <img class="icon" src="/resources/ICON_CALL.png"/>
                     <h3>Du hast die Nummer durchgegeben?</h3>
                     <h3>Klicke hier.</h3>
-                </div> 
-              </a>
-            </div>
-            <div class="col">
-                <a id="callLink" href="/callSomeone">
-                    <div class="jumbotron jumbotron-fluid ">
-                        <img class="icon" src="../resources/ICON_HELP.png"/>
-                        <h3>Du hast eine Nummer erhalten?</h3>
-                        <h3>Klicke hier.</h3>
-                    </div> 
-                </a>
-            </div>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a id="callLink" href="/callSomeone">
+                <div class="jumbotron jumbotron-fluid ">
+                    <img class="icon" src="../resources/ICON_HELP.png"/>
+                    <h3>Du hast eine Nummer erhalten?</h3>
+                    <h3>Klicke hier.</h3>
+                </div>
+            </a>
         </div>
     </div>
-    </div>
+</div>
+</div>
 
-    <script src='https://silbertablet.org:8443/external_api.js'></script>
-    <script type="text/javascript">
-        function getCookie(cname) {
-            var name = cname + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var ca = decodedCookie.split(';');
-            for(var i = 0; i <ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') {
+<script src='https://silbertablet.org:8443/external_api.js'></script>
+<script type="text/javascript">
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
                 c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
+            }
+            if (c.indexOf(name) == 0) {
                 return c.substring(name.length, c.length);
-                }
             }
-            return "";
         }
+        return "";
+    }
 
-        function setCookie(cname, cvalue, exdays) {
-            var d = new Date();
-            d.setTime(d.getTime() + (exdays*24*60*60*1000));
-            var expires = "expires="+ d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function generate_dial_in_code() {
+        //Neuen Dial-In-Code anfordern und als Cookie speichern und anzeigen
+        document.getElementById("dial-in-code").innerHTML = "Bitte warten";
+
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", 'api/create-dial-in-code', false);
+        xmlHttp.send(null);
+        var response = JSON.parse(xmlHttp.responseText);
+
+        //Dial-In-Code in Cookie speichern
+        if (response.status == 200) {
+            var dial_in_code = response.data.dial_in_code;
+            setCookie('dial_in_code', dial_in_code, 365);
+            document.getElementById("dial-in-code").innerHTML = dial_in_code;
+        } else {
+            document.getElementById("dial-in-code").innerHTML = "Fehler!";
         }
+    }
 
-        function generate_dial_in_code(){
-            //Neuen Dial-In-Code anfordern und als Cookie speichern und anzeigen
-            document.getElementById("dial-in-code").innerHTML = "Bitte warten";
+    //Gibt es schon einen Cookie mit Dial-In-Code:
+    if (getCookie('dial_in_code') == '') {
+        generate_dial_in_code();
+    } else {
+        var dial_in_code = getCookie('dial_in_code');
 
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open( "GET", 'api/create-dial-in-code', false );
-            xmlHttp.send( null );
-            var response = JSON.parse(xmlHttp.responseText);
+        //Gibt es den Dial-In-Code aus dem Cookie?
 
-            //Dial-In-Code in Cookie speichern
-            if(response.status == 200){
-                var dial_in_code = response.data.dial_in_code;
-                setCookie('dial_in_code',dial_in_code,365);
-                document.getElementById("dial-in-code").innerHTML = dial_in_code;
-            }else{
-                document.getElementById("dial-in-code").innerHTML = "Fehler!";
-            }   
-        }
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", 'api/dial-in-code/' + dial_in_code, false);
+        xmlHttp.send(null);
+        var response = JSON.parse(xmlHttp.responseText);
 
-        //Gibt es schon einen Cookie mit Dial-In-Code:
-       if(getCookie('dial_in_code') == ''){
+
+        if (response.status == "404") {
+            //Existiert noch nicht - dann erzeugen
             generate_dial_in_code();
-       }else{
-            var dial_in_code = getCookie('dial_in_code');
-            
-            //Gibt es den Dial-In-Code aus dem Cookie?
-        
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open( "GET", 'api/dial-in-code/' + dial_in_code, false );
-            xmlHttp.send(null );
-            var response = JSON.parse(xmlHttp.responseText);
-
-            
-            if(response.status == "404"){
-                //Existiert noch nicht - dann erzeugen
-                generate_dial_in_code();
-            }else{
-                //Dial-In-Code anzeigen
-                document.getElementById("dial-in-code").innerHTML = dial_in_code;
-            }
-       }
+        } else {
+            //Dial-In-Code anzeigen
+            document.getElementById("dial-in-code").innerHTML = dial_in_code;
+        }
+    }
 
 
-    </script>
+</script>
 </body>
 </html>
