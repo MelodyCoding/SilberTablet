@@ -1,5 +1,6 @@
 // Development Server?
-const devel = true;
+
+const config = require('config/config');
 
 let express = require('express');
 let app = express();
@@ -96,8 +97,8 @@ app.get('/api/dial-in-code/:code', function (req, res) {
     res.send(response);
 });
 
-if (devel) {
-    const port = process.env.PORT || 8080;
+if (config.development_mode) {
+    const port = process.env.PORT || config.development_port;
     app.listen(port);
 
     console.log("Server running at http://localhost:%d", port);
