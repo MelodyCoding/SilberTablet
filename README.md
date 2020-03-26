@@ -6,8 +6,8 @@ It is build on [NodeJS](https://nodejs.org/en/about/) and the open-source video 
 ## Quick Start
 To start the NodeJS server just execute:
 ```bash
-    npm i
-    npm run start
+npm i
+npm run start
 ```
 
 ## Setup
@@ -17,15 +17,15 @@ The following instructions were tested on a server running Debian 4.19.
 First start with setting up the Jitsi docker containers.  
 This part of instructions can also be found in the [Jitsi docker repository](https://github.com/jitsi/docker-jitsi-meet).
 ```bash
-    apt update
-    apt install docker docker-compose npm git vim
-    git clone https://github.com/jitsi/docker-jitsi-meet && cd docker-jitsi-meet
-    cp env.example .env
-    mkdir -p ~/.jitsi-meet-cfg/{web/letsencrypt,transcripts,prosody,jicofo,jvb}
+apt update
+apt install docker docker-compose npm git vim
+git clone https://github.com/jitsi/docker-jitsi-meet && cd docker-jitsi-meet
+cp env.example .env
+mkdir -p ~/.jitsi-meet-cfg/{web/letsencrypt,transcripts,prosody,jicofo,jvb}
 ```
 Now your Jitsi instance is prepared to be started, but we need https before doing it.
 ```bash
-    vim .env
+vim .env
 ```
 Uncomment the three LetsEncrypt options and insert your domain (set $MY_DOMAIN) and your email (set $MY_EMAIL):
 ```bash
@@ -44,39 +44,39 @@ LETSENCRYPT_EMAIL=$MY_EMAIL
 ```
 Then, run the docker containers and create the folder for your TLS key and certificate:
 ```bash
-    docker-compose up -d
-    mkdir -p ~/.jitsi-meet-cfg/web/letsencrypt/live/$MY_DOMAIN
+docker-compose up -d
+mkdir -p ~/.jitsi-meet-cfg/web/letsencrypt/live/$MY_DOMAIN
 ```
 We assume that you already set up LetsEncrypt on your server with your domain.  
 If not do so before going on (`apt install certbot && certbot certonly` may help).  
 
 Now copy your pem-files in the created folder. 
 ```bash
-    cp /etc/letsencrypt/live/$YOUR_DOMAIN/*.pem ~/.jitsi-meet-cfg/web/letsencrypt/live/$MY_DOMAIN/
+cp /etc/letsencrypt/live/$YOUR_DOMAIN/*.pem ~/.jitsi-meet-cfg/web/letsencrypt/live/$MY_DOMAIN/
 ```
 Moreover copy your keyfiles to the keys folder:
  ```bash
-    cp /etc/letsencrypt/keys/*.pem ~/.jitsi-meet-cfg/web/letsencrypt/keys/
+cp /etc/letsencrypt/keys/*.pem ~/.jitsi-meet-cfg/web/letsencrypt/keys/
 ```   
 Then restart the web docker container.
 ```bash
-    docker restart docker-jitsi-meet_web_1
+docker restart docker-jitsi-meet_web_1
 ```
 Now the Jitsi instance should be accessible at `https://$YOUR_DOMAIN:8443` and be secured by a valid LetsEncrypt certificate.  
   
 To download the SilberTablet Webapp go on:
 ```bash
-    cd
-    git clone https://github.com/MelodyCoding/SilberTablet && cd SilberTablet
+cd
+git clone https://github.com/MelodyCoding/SilberTablet && cd SilberTablet
 ```
 Copy the example config for deployment to create a config file.
 ```bash
-    cp config/deploy_config_example.json config/config.json
+cp config/deploy_config_example.json config/config.json
 ```
 Now start the NodeJS server.
 ```bash
-    npm i
-    npm run start
+npm i
+npm run start
 ```
 The SilberTablet Webapp should now be available at `https://$YOUR_DOMAIN/app`.
 
