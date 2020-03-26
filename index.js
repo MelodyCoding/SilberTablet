@@ -1,6 +1,6 @@
 // Development Server?
 
-const config = require('config/config');
+const config = require('./config/config.json');
 
 let express = require('express');
 let app = express();
