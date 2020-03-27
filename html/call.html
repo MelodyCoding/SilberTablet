@@ -154,17 +154,19 @@
         const options = {
             roomName: room_name,
             interfaceConfigOverwrite: {
-                filmStripOnly: true
+                filmStripOnly: false
             },
             parentNode: document.querySelector('#call')
         };
 
         api = new JitsiMeetExternalAPI('silbertablet.org:8443', options);
-        api.addEventListener('videoConferenceJoined', selfJoinedListener);
-        api.addEventListener('participantJoined', participantJoinedListener);
-        api.addEventListener('passwordRequired', passwordRequiredListener);
-        api.addEventListener('videoConferenceLeft', videoConferenceLeftListener);
-        api.addEventListener('participantLeft', participantLeftListener);
+        setTimeout(() => {
+            api.addEventListener('videoConferenceJoined', selfJoinedListener);
+            api.addEventListener('participantJoined', participantJoinedListener);
+            api.addEventListener('passwordRequired', passwordRequiredListener);
+            api.addEventListener('videoConferenceLeft', videoConferenceLeftListener);
+            api.addEventListener('participantLeft', participantLeftListener);
+        }, 1000);
     }
 
     function cancelCall() {
