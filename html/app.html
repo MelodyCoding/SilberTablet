@@ -22,7 +22,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <a id="callLink" href="./call">
+            <a class="callLink" href="./call">
                 <div class="jumbotron jumbotron-fluid ">
                     <img class="icon" src="/resources/ICON_CALL.png"/>
                     <h3>Du hast die Nummer durchgegeben?</h3>
@@ -31,7 +31,7 @@
             </a>
         </div>
         <div class="col">
-            <a id="callLink" href="/callSomeone">
+            <a class="callLink" href="/callSomeone">
                 <div class="jumbotron jumbotron-fluid ">
                     <img class="icon" src="../resources/ICON_HELP.png"/>
                     <h3>Du hast eine Nummer erhalten?</h3>
@@ -40,7 +40,6 @@
             </a>
         </div>
     </div>
-</div>
 </div>
 
 <script src='https://silbertablet.org:8443/external_api.js'></script>
@@ -51,10 +50,10 @@
         var ca = decodedCookie.split(';');
         for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
-            while (c.charAt(0) == ' ') {
+            while (c.charAt(0) === ' ') {
                 c = c.substring(1);
             }
-            if (c.indexOf(name) == 0) {
+            if (c.indexOf(name) === 0) {
                 return c.substring(name.length, c.length);
             }
         }
@@ -72,14 +71,14 @@
         //Neuen Dial-In-Code anfordern und als Cookie speichern und anzeigen
         document.getElementById("dial-in-code").innerHTML = "Bitte warten";
 
-        var xmlHttp = new XMLHttpRequest();
+        let xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", 'api/create-dial-in-code', false);
         xmlHttp.send(null);
-        var response = JSON.parse(xmlHttp.responseText);
+        const response = JSON.parse(xmlHttp.responseText);
 
         //Dial-In-Code in Cookie speichern
-        if (response.status == 200) {
-            var dial_in_code = response.data.dial_in_code;
+        if (response.status === "200") {
+            const dial_in_code = response.data.dial_in_code;
             setCookie('dial_in_code', dial_in_code, 365);
             document.getElementById("dial-in-code").innerHTML = dial_in_code;
         } else {
@@ -88,20 +87,20 @@
     }
 
     //Gibt es schon einen Cookie mit Dial-In-Code:
-    if (getCookie('dial_in_code') == '') {
+    if (getCookie('dial_in_code') === '') {
         generate_dial_in_code();
     } else {
-        var dial_in_code = getCookie('dial_in_code');
+        const dial_in_code = getCookie('dial_in_code');
 
         //Gibt es den Dial-In-Code aus dem Cookie?
 
-        var xmlHttp = new XMLHttpRequest();
+        let xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", 'api/dial-in-code/' + dial_in_code, false);
         xmlHttp.send(null);
-        var response = JSON.parse(xmlHttp.responseText);
+        const response = JSON.parse(xmlHttp.responseText);
 
 
-        if (response.status == "404") {
+        if (response.status === "404") {
             //Existiert noch nicht - dann erzeugen
             generate_dial_in_code();
         } else {

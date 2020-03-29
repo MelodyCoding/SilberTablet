@@ -24,8 +24,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <h3>Soblad der eingeladene Kontakt die Einladung angenommen hat, startet der Videoanruf.</h3>
-                <h3>Deine Nummer lautet: <span id="dial_in_code"></span></span></h3>
+                <h3>Sobald der eingeladene Kontakt die Einladung angenommen hat, startet der Videoanruf.</h3>
+                <h3>Deine Nummer lautet: <span id="dial_in_code"></span></h3>
                 <div class="row">
                     <div class="col">
                         <a class="btn btn-primary" href="/app" role="button">
@@ -34,7 +34,6 @@
                         </a>
                     </div>
                 </div>
-                </a>
             </div>
         </div>
     </div>
@@ -73,100 +72,114 @@
 
     </div>
 </div>
-</div>
 
 <script src='https://silbertablet.org:8443/external_api.js'></script>
 <script type="text/javascript">
-    var password = "";
-    var room_name = "";
-    var dial_in_code = "";
-    var api
+    let password = "";
+    let room_name = "";
+    let dial_in_code = "";
 
     function getCookie(cname) {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') {
+        const name = cname + "=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
                 c = c.substring(1);
             }
-            if (c.indexOf(name) == 0) {
+            if (c.indexOf(name) === 0) {
                 return c.substring(name.length, c.length);
             }
         }
         return "";
     }
 
-    function selfJoinedListener(test) {
-        //Erst sobald ein Teilnehmer gejoint hat, kann das Kennwort gesetzt werden
+    function selfJoinedListener() {
+        console.log("self joined");
         document.getElementById("info").innerHTML = "Deine Nummer lautet: " + dial_in_code;
-        api.executeCommand('password', password);
-
-        if (api.getNumberOfParticipants() == 1) {
+        if (api.getNumberOfParticipants() === 1) {
             $('#popup_wait').modal('show');
         }
     }
 
-    function participantJoinedListener(test) {
+    function participantJoinedListener() {
+        console.log("participant joined");
         //Den Modal schließen ...
         $('#popup_left').modal('hide');
         $('#popup_wait').modal('hide');
     }
 
-    function passwordRequiredListener(test) {
+    function passwordRequiredListener() {
+        console.log("password required");
         //Das Kennwort eingeben
         api.executeCommand('password', room_password);
     }
 
-    function videoConferenceLeftListener(test) {
+    function videoConferenceLeftListener() {
+        console.log("video conference left");
         //Nach dem Auflegen auf die Haupt-App weiterleiten
-        window.location.href = "./app";
+        window.location.href = "/app";
     }
 
     function participantLeftListener(test) {
+        console.log("participant left");
         //Wenn nur ein Teilnehmer da ist: Modal mit Wartebildschirm anzeigen
-        if (api.getNumberOfParticipants() == 1) {
+        if (api.getNumberOfParticipants() === 1) {
             $('#popup_left').modal('show');
         }
     }
 
+    function setPassword(password) {
+        console.log("set password");
+        api.executeCommand('password', password);
+    }
+
     //Gibt es einen Dial-In-Code als Cookie?
-    if (getCookie('dial_in_code') == "") {
+    if (getCookie('dial_in_code') === "") {
         //Umleiten auf /app, um einen Dial-In-Code als Cookie zu erhalten
-        window.location.href = "./app";
+        window.location.href = "/app";
     }
 
     dial_in_code = getCookie('dial_in_code');
     document.getElementById("dial_in_code").innerHTML = dial_in_code;
 
     //Den Raumnamen und das Kennwort vom Server laden
-    var xmlHttp = new XMLHttpRequest();
+    let xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", 'api/dial-in-code/' + dial_in_code, false);
     xmlHttp.send(null);
-    var response = JSON.parse(xmlHttp.responseText);
+    const response = JSON.parse(xmlHttp.responseText);
 
     room_name = response.data.room_name;
     password = response.data.password;
 
-    if (response.status == "200") {
+    if (response.status === "200") {
         //Den Call initieren
         const options = {
             roomName: room_name,
-            interfaceConfigOverwrite: {
-                filmStripOnly: false
-            },
             parentNode: document.querySelector('#call')
         };
 
         api = new JitsiMeetExternalAPI('silbertablet.org:8443', options);
-        setTimeout(() => {
-            api.addEventListener('videoConferenceJoined', selfJoinedListener);
-            api.addEventListener('participantJoined', participantJoinedListener);
-            api.addEventListener('passwordRequired', passwordRequiredListener);
-            api.addEventListener('videoConferenceLeft', videoConferenceLeftListener);
-            api.addEventListener('participantLeft', participantLeftListener);
-        }, 1000);
+
+        setTimeout(setPassword,5000,[password]);
+
+        api.on('videoConferenceJoined', () => {
+          selfJoinedListener();
+        });
+        api.on('participantJoined', () => {
+          participantJoinedListener();
+        });
+        api.on('passwordRequired', () => {
+          passwordRequiredListener();
+        });
+        api.on('videoConferenceLeft', () => {
+          videoConferenceLeftListener();
+        });
+        api.on('participantLeft', () => {
+          participantLeftListener();
+        });
+
     }
 
     function cancelCall() {

@@ -25,7 +25,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <a id="callLink" onclick="startCall()">
+            <a class="callLink" onclick="startCall()">
                 <div class="jumbotron jumbotron-fluid ">
                     <img class="icon" src="/resources/ICON_CALL.png"/>
                     <h3>Anruf tätigen</h3>
@@ -33,16 +33,14 @@
             </a>
         </div>
         <div class="col">
-            <a id="callLink" href="/app">
+            <a class="callLink" href="/app">
                 <div class="jumbotron jumbotron-fluid ">
                     <img class="icon" src="../resources/ICON_DELETE.png"/>
                     <h3>Abbrechen</h3>
                 </div>
             </a>
-            </a>
         </div>
     </div>
-</div>
 </div>
 
 <script src='https://silbertablet.org:8443/external_api.js'></script>
@@ -58,10 +56,10 @@
         var response = JSON.parse(xmlHttp.responseText);
 
         //3. Weiterleitung auf den Call
-        if (response.status == "200") {
-            document.getElementById('info').innerHTML = 'Gleich gehts los';
-            window.location.href = "./room?" + dial_in_code;
-        } else if (response.status == "404") {
+        if (response.status === "200") {
+            document.getElementById('info').innerHTML = 'Gleich geht\'s los...';
+            window.location.href = "/room?" + dial_in_code;
+        } else if (response.status === "404") {
             document.getElementById('info').innerHTML = 'Der Code existiert nicht. Hast du dich vertippt?'
         }
     }
